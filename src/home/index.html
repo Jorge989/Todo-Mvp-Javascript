@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <title>To Do</title>
+  </head>
+  <body>
+    <div class="menu-header-wapper">
+      <section class="menu-section">
+        <div class="menu" id="div-menu">
+          <i class="fa-solid fa-bars" id="menu-icon"></i>
+          <i class="fa-sharp fa-solid fa-house" id="menu-icon"></i>
+          <i class="fa-solid fa-check" id="menu-icon"></i>
+          <i class="fa-solid fa-calendar" id="menu-icon"></i>
+        </div>
+      </section>
+      <div class="header-body-wapper">
+        <section class="header-section">
+          <header>
+            <div class="header-container">
+              <div class="input-glass-container">
+                <input placeholder="Procure pelo número da task"  id="inputFilter"/>
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </div>
+              <div class="upload-container">
+                <input
+                  class="imgInput"
+                  type="file"
+                  id="file"
+                  accept="image/jpeg, image/png, image/jpg"
+                />
+                <img class="image" id="image" />
+              </div>
+              <div class="upload-container-hidden">
+                <input
+                  class="imgInput-hidden"
+                  type="file"
+                  id="file-hidden"
+                  accept="image/jpeg, image/png, image/jpg"
+                />
+                <i
+                  class="fa-regular fa-pen-to-square"
+                  id="pen"
+                  class="hidden"
+                ></i>
+                <img class="image-hidden" id="image-hidden" />
+              </div>
+            </div>
+          </header>
+        </section>
+        <section class="new-task-section">
+          <div class="new-task-container">
+            <div class="icon-text-container">
+              <h1>Todo<span>MVP</span></h1>
+              <i class="fa-solid fa-code"></i>
+            </div>
+            <button class="btn-new-task">Nova Task</button>
+            <div class="modal hidden">
+              <div class="modal-h1-wrapper">
+                <h1>Digite a nova task</h1>
+                <butto class="close-modal"
+                  ><i class="fa-solid fa-xmark"></i
+                ></butto>
+              </div>
+              <form onsubmit="handleForm(event)">
+                <input id="index" />
+                <label for="start" class="data-label">Data:</label>
+                <input
+                  type="date"
+                  id="start"
+                  name="trip-start"
+                  value=""
+                  min=""
+                  max=""
+                />
+
+                <label for="titulo">Título:</label>
+                <input
+                  type="text"
+                  name="titulo"
+                  id="titulo"
+                  placeholder="Descreva o título"
+                />
+                <label for="sub" class="sub-label">Subtítulo:</label>
+                <input
+                  type="text"
+                  name="sub"
+                  id="sub"
+                  placeholder="Descreva o subtítulo"
+                />
+                <label class="descricao" for="descricao">Descrição:</label>
+                <input
+                  type="text"
+                  name="descricao"
+                  id="descricao"
+                  placeholder="Descreva o subtítulo"
+                ></input>
+                <div class="btn-erro-container">
+                  <button
+                    class="btn-confirmar"
+                    type="submit"
+                    id="sendForm"
+             
+                    >Confirmar</button
+                  >
+                  <div id="errorContainer"></div>
+                </div>
+              </form>
+            </div>
+            <div class="overlay hidden"></div>
+          </div>
+        </section>
+        <section class="todo-list-section">
+          <div class="todo-container" id="main"></div>
+          <div class="task-details-container">
+       
+              <form method="post" class="form-details">
+                <p id="titulo-detail">Clique na lista para visualizar a task!!</p>
+                <div class="hidden-div">
+                <input id="index2" />
+              
+
+                <label for="titulo">Título</label>
+                <input
+                  disabled
+                  type="text"
+                  name="titulo"
+                  id="titulo2"
+              
+                />
+                <label for="sub" class="sub-label">Subtítulo</label>
+                <input 
+                  disabled
+                  type="text"
+                  name="sub"
+                  id="sub2"
+            
+                />  <label for="start" class="data-label">Data</label>
+                <input
+                  disabled
+                  type="date"
+                  id="start2"
+                  name="trip-start"
+            
+                />
+                <label class="descricao" for="descricao2">Descrição</label>
+                <textarea
+                  disabled
+                  type="text"
+                  name="descricao2"
+                  id="descricao2"
+            
+                ></textarea>
+         
+                </div>
+              </form>
+          </div>
+        </section>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
