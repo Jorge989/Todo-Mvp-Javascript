@@ -15,15 +15,30 @@
     <div class="menu-header-wapper">
       <section class="menu-section">
         <div class="menu" id="div-menu">
-          <i class="fa-solid fa-bars" id="menu-icon"></i>
-          <i class="fa-sharp fa-solid fa-house" id="menu-icon"></i>
-          <i class="fa-solid fa-check" id="menu-icon"></i>
-          <i class="fa-solid fa-calendar" id="menu-icon"></i>
+          <div class="menu-itens-menu" id="OpenMenu">
+          <i class="fa-solid fa-bars" id="menu-icon"></i><a class="text-items-menu">Menu</a>
+          </div>
+            <div class="menu-itens-menu" >
+          <i class="fa-sharp fa-solid fa-house" id="menu-icon"></i><a class="text-items-menu">Home</a>
+          </div>
+              <!-- <div class="menu-itens-menu" >
+         <i class="fa-solid fa-check" id="menu-icon"></i><a href="../tasks/index.html" class="text-items-menu">Tasks</a>
+          </div> -->
+                   <div class="menu-itens-menu" >
+        <i class="fa-solid fa-calendar" id="menu-icon"></i><a class="text-items-menu">Calendar</a>
+          </div>
+         
         </div>
       </section>
       <div class="header-body-wapper">
         <section class="header-section">
           <header>
+  <div class="check-container">
+
+<label class="switch">
+  <input type="checkbox" id="checkTask">
+  <span class="slider round"></span>
+</label><p class="checkbox-p">Mude para ver tarefas pendentes</p></div>
             <div class="header-container">
               <div class="input-glass-container">
                 <input placeholder="Procure pelo número da task"  id="inputFilter"/>
@@ -80,8 +95,7 @@
                   min=""
                   max=""
                 />
-
-                <label for="titulo">Título:</label>
+                <label for="titulo" class="label-titulo">Título:</label>
                 <input
                   type="text"
                   name="titulo"

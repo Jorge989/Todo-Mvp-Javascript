@@ -1,5 +1,11 @@
 //*pegando arquivo input
 
+const MenuTextItem = document.querySelectorAll(".text-items-menu");
+
+MenuTextItem.forEach((data) => {
+  data.style.display = "none";
+});
+localStorage.setItem("filteredTasksDone", JSON.stringify(""));
 document.querySelector(".image").classList.remove("teste");
 document.querySelector(".hidden-div").style.display = "none";
 document.querySelector(".image").src = "./avatar.png";
@@ -54,6 +60,7 @@ imgProfile.addEventListener("mouseover", (event) => {
     });
   }
 });
+
 imgProfile.addEventListener("mouseout", (event) => {
   if (isProfilePhotoUpload) {
     document.querySelector("#pen").style.display = "none";
@@ -101,13 +108,17 @@ document.addEventListener("keydown", function (e) {
 let index = -1;
 function handleForm(e) {
   var testerarr = JSON.parse(localStorage.getItem("newtask"));
-
   var counter = parseInt(
     localStorage.getItem("index") ? parseInt(localStorage.getItem("index")) : -1
   );
   localStorage.setItem("index", ++counter);
-
+  console.log("caounter", counter);
   if (FormIsEdited) {
+    console.log("oiiiii entro no if");
+    var counter = parseInt(localStorage.getItem("index"));
+    localStorage.setItem("index", --counter);
+    console.log("COUNTER", counter);
+    console.log("handleindex", handleIndex);
     newTask = [
       {
         titulo: document.getElementById("titulo").value,
@@ -119,12 +130,13 @@ function handleForm(e) {
       },
     ];
     secondTask = {
+      checked: isChecked,
       titulo: document.getElementById("titulo").value,
       subtitulo: document.getElementById("sub").value,
       descricao: document.getElementById("descricao").value,
       data: document.getElementById("start").value,
       id: Math.floor(Math.random() * Math.floor(Math.random() * Date.now())),
-      index: counter,
+      index: handleIndex,
     };
     if (
       secondTask.titulo == "" ||
@@ -146,7 +158,7 @@ function handleForm(e) {
       const index = document.getElementById("index").value;
 
       udapte(testerarr, index, secondTask);
-
+      testerarr.forEach((data) => {});
       localStorage.setItem("newtask", JSON.stringify(testerarr));
     } else {
       localStorage.setItem("newtask", JSON.stringify(newTask));
@@ -203,31 +215,73 @@ const teste = JSON.parse(localStorage.getItem("newtask"));
 
 const myContent = document.querySelector(".todo-container");
 const myContentDetails = document.querySelector(".task-details-container");
-const getLocalSotrage = JSON.parse(localStorage.getItem("newtask"));
+let getLocalSotrage = JSON.parse(localStorage.getItem("newtask"));
+const checkTaskInput = document.getElementById("checkTask");
+let filteredTasksDone = [];
+let filteredTasksPendding = [];
+let switchDonePendding;
+let filteredFiles = [];
+let filteredDone = [];
+checkTaskInput.addEventListener("click", (click) => {
+  switchDonePendding = checkTaskInput.checked;
+  localStorage.setItem(
+    "switchDonePendding",
+    JSON.stringify(switchDonePendding)
+  );
+});
+switchDonePendding = JSON.parse(localStorage.getItem("switchDonePendding"));
+
+checkTaskInput.addEventListener("change", () => {
+  const tests = getLocalSotrage.forEach((task) => {
+    task;
+
+    if (task.checked == true) {
+      filteredTasksDone.push(task);
+      filteredFiles = Object.values(
+        filteredTasksDone.reduce((acc, cur) => {
+          if (!acc[cur.titulo]) acc[cur.titulo] = cur;
+          return acc;
+        }, {})
+      );
+      filteredTasksDone = filteredFiles;
+      localStorage.setItem(
+        "filteredTasksDone",
+        JSON.stringify(filteredTasksDone)
+      );
+      filteredDone = JSON.parse(localStorage.getItem("filteredTasksDone"));
+    } else {
+      filteredTasksPendding.push(task);
+
+      filteredFiles = Object.values(
+        filteredTasksPendding.reduce((acc, cur) => {
+          if (!acc[cur.titulo]) acc[cur.titulo] = cur;
+          return acc;
+        }, {})
+      );
+      filteredTasksPendding = filteredFiles;
+      localStorage.setItem(
+        "filteredTasksPendding",
+        JSON.stringify(filteredTasksPendding)
+      );
+    }
+  });
+});
+
 const inputFilter = document.getElementById("inputFilter");
 let testa = [];
 
 inputFilter.addEventListener("keydown", function (e) {
-  console.log(e.key);
   testa = getLocalSotrage.filter((data) => {
-    console.log("e", typeof e.key, e.key);
-    console.log("data.titulo", typeof data.titulo, data.titulo);
-    console.log("data2222", data.titulo == e.key);
     let word = "";
     word.concat(e.key);
-    console.log(
-      "🚀 ~ file: script.js:218 ~ testa=getLocalSotrage.filter ~ word",
-      word
-    );
+
     return data.index == e.key;
   });
-  console.log("testa", testa.length);
+
   if (testa.length > 0) {
-    console.log("IF");
     let showIntHtml = testa
       .map((data, index) => {
-        console.log("🚀 ~ file: script.js:208 ~ .map ~ data", data.descricao);
-        return `<div class="todo" onclick="setDetails(${data.id})
+        return `<div class="todo" onclick="TwoWIndows(${data.id})
     "> 
             <div class="titles-wrapper"> 
              <input  ${
@@ -237,16 +291,16 @@ inputFilter.addEventListener("keydown", function (e) {
         })"/> 
              <div class="container-titles"> 
              <div class="titles">
-             <p class="subtitlep">Task: ${data.index}</p>
+             <p class="subtitlep">ID: ${data.index}</p>
              <h4 class="titleh4">${data.titulo}</h4> 
  
              </div>
             <p class="subtitlep">${data.subtitulo}</p>
             </div> 
              </div> 
-<div class="priority"><div class="done"><p id="priority">Today</p><p class="checked">${
-          data.checked ? "Done" : "pendding"
-        }</p></div>
+<div class="priority"><div class="done"><p id="priority">Today</p><p class="${
+          data.checked ? "checked" : "uncheck"
+        }">${data.checked ? "Done" : "pendding"}</p></div>
 <button class="button-bullet" onclick="showSelect(${data.id})">
 <i class="fa-solid fa-ellipsis-vertical" id=menu-bullet>
 </i></button><div name="select"class="h1Select" id="${data.id}">
@@ -262,30 +316,28 @@ inputFilter.addEventListener("keydown", function (e) {
       .join("");
     myContent.innerHTML = showIntHtml;
   } else {
-    console.log("ELSE");
     const showIntHtml = getLocalSotrage
       .map((data, index) => {
-        console.log("🚀 ~ file: script.js:208 ~ .map ~ data", data.descricao);
-        return `<div class="todo" onclick="setDetails(${data.id})
+        return `<div class="todo" onclick="TwoWIndows(${data.id})
     "> 
             <div class="titles-wrapper"> 
-                 <input  ${
-                   data.checked ? "checked" : ""
-                 }  type="checkbox" id="check" class="check" name="check" onclick="checkTask(${
+
+             <input  ${
+               data.checked ? "checked" : ""
+             }  type="checkbox" id="check" class="check" name="check" onclick="checkTask(${
           data.id
         })"/> 
              <div class="container-titles"> 
-                 <div class="titles">
-                  <p class="subtitlep">Task: ${data.index}</p>
-             <h4 class="titleh4">${data.titulo}</h4> 
-        
+             <div class="titles">
+             <p class="subtitlep-id">ID: ${data.index}</p>
+             <h4 class="titleh4"><p>Título:</p>${data.titulo}</h4> 
                </div>
-            <p class="subtitlep">${data.subtitulo}</p>
+            <h4 class="subtitlep"><p>Subtítulo:</p>${data.subtitulo}</h4>
             </div> 
              </div> 
-<div class="priority"><div class="done"><p id="priority">Today</p><p class="checked">${
-          data.checked ? "Done" : "pendding"
-        }</p></div>
+<div class="priority"><div class="done"><p id="priority">Today</p><p class="${
+          data.checked ? "checked" : "uncheck"
+        }">${data.checked ? "Done" : "pendding"}</p></div>
 <button class="button-bullet" onclick="showSelect(${data.id})">
 <i class="fa-solid fa-ellipsis-vertical" id=menu-bullet>
 </i></button><div name="select"class="h1Select" id="${data.id}">
@@ -304,28 +356,31 @@ inputFilter.addEventListener("keydown", function (e) {
   }
 });
 
-const showIntHtml = getLocalSotrage
-  .map((data, index) => {
-    return `<div class="todo" "onclick="setDetails(${data.id}")
+var filterPendding = JSON.parse(localStorage.getItem("filteredTasksPendding"));
+
+if (filteredDone.length > 0) {
+  const showIntHtml = filteredTasksDone
+    .map((data, index) => {
+      return `<div class="todo" onclick="TwoWIndows(${data.id})
     "> 
             <div class="titles-wrapper"> 
 
              <input  ${
                data.checked ? "checked" : ""
              }  type="checkbox" id="check" class="check" name="check" onclick="checkTask(${
-      data.id
-    })"/> 
+        data.id
+      })"/> 
              <div class="container-titles"> 
              <div class="titles">
-             <p class="subtitlep">Task: ${data.index}</p>
-             <h4 class="titleh4">${data.titulo}</h4> 
+             <p class="subtitlep-id">ID: ${data.index}</p>
+             <h4 class="titleh4"><p>Título:</p>${data.titulo}</h4> 
                </div>
-            <p class="subtitlep">${data.subtitulo}</p>
+            <h4 class="subtitlep"><p>Subtítulo:</p>${data.subtitulo}</h4>
             </div> 
              </div> 
-<div class="priority"><div class="done"><p id="priority">Today</p><p class="checked">${
-      data.checked ? "Done" : "pendding"
-    }</p></div>
+<div class="priority"><div class="done"><p id="priority">Today</p><p class="${
+        data.checked ? "checked" : "uncheck"
+      }">${data.checked ? "Done" : "pendding"}</p></div>
 <button class="button-bullet" onclick="showSelect(${data.id})">
 <i class="fa-solid fa-ellipsis-vertical" id=menu-bullet>
 </i></button><div name="select"class="h1Select" id="${data.id}">
@@ -337,11 +392,53 @@ const showIntHtml = getLocalSotrage
   })">Editar</option>
 </div></div>
 </div>`;
-  })
-  .join("");
+    })
+    .join("");
 
-myContent.innerHTML = showIntHtml;
+  myContent.innerHTML = showIntHtml;
+}
+if (getLocalSotrage) {
+  const showIntHtml = getLocalSotrage
+    .map((data, index) => {
+      return `<div class="todo" onclick="TwoWIndows(${data.id})
+    "> 
+            <div class="titles-wrapper"> 
 
+             <input  ${
+               data.checked ? "checked" : ""
+             }  type="checkbox" id="check" class="check" name="check" onclick="checkTask(${
+        data.id
+      })"/> 
+             <div class="container-titles"> 
+             <div class="titles">
+             <p class="subtitlep-id">ID: ${data.index}</p>
+             <h4 class="titleh4"><p>Título:</p>${data.titulo}</h4> 
+               </div>
+            <h4 class="subtitlep"><p>Subtítulo:</p>${data.subtitulo}</h4>
+            </div> 
+             </div> 
+<div class="priority"><div class="done"><p id="priority">Today</p><p class="${
+        data.checked ? "checked" : "uncheck"
+      }">${data.checked ? "Done" : "pendding"}</p></div>
+<button class="button-bullet" onclick="showSelect(${data.id})">
+<i class="fa-solid fa-ellipsis-vertical" id=menu-bullet>
+</i></button><div name="select"class="h1Select" id="${data.id}">
+  <option value="valor1" class="deletar" onclick="deleteTask(${
+    data.id
+  })">Deletar</option>
+  <option value="valor2" class="editar"onclick="editTask(${
+    data.id
+  })">Editar</option>
+</div></div>
+</div>`;
+    })
+    .join("");
+
+  myContent.innerHTML = showIntHtml;
+} else {
+  const noTaskIntHtml = `<p class="NotaskParagafh">Você não possui tasks</p>`;
+  myContent.innerHTML = noTaskIntHtml;
+}
 function showSelect(id) {
   let showAndHideMenu = false;
   const select = document.getElementById(id);
@@ -357,14 +454,19 @@ function showSelect(id) {
 function deleteTask(id) {
   const filtered = getLocalSotrage.filter((item) => item.id !== id);
   localStorage.setItem("newtask", JSON.stringify(filtered));
+  var counter = parseInt(localStorage.getItem("index"));
+  localStorage.setItem("index", --counter);
   window.location.reload();
 }
 let isEditModal = false;
+let isChecked;
+let handleIndex;
 function editTask(id) {
   isEditModal = true;
   const filtered = getLocalSotrage.filter((item) => item.id === id);
+  isChecked = filtered[0].checked;
+  handleIndex = filtered[0].index;
   filtered.forEach((data) => {
-    console.log("🚀 ~ file: script.js:247 ~ filtered.forEach ~ data", data);
     document.getElementById("index").value = data.index;
     document.getElementById("start").value = data.data;
     document.getElementById("titulo").value = data.titulo;
@@ -377,39 +479,24 @@ function editTask(id) {
 }
 document.querySelector(".hidden-div").style.display = "none";
 //*show select button*//
-function setDetails(id) {
-  const testeDescrip = descricao.toString();
-
-  const filtered = getLocalSotrage.filter((item) => item.id === id);
-  document.querySelector(".hidden-div").style.display = "flex";
-  filtered.forEach((data) => {
-    document.getElementById("index2").value = data.index;
-    document.getElementById("start2").value = data.data;
-    document.getElementById("titulo2").value = data.titulo;
-    document.getElementById("sub2").value = data.subtitulo;
-    document.getElementById("descricao2").value = data.descricao;
-  });
-}
 
 const checkBtn = document.getElementById("check");
-checkBtn.addEventListener("click", () => {
-  // alert("coding");
-  const filtered = getLocalSotrage.filter((item) => item.id === id);
-});
+
+if (checkBtn) {
+  checkBtn.addEventListener("click", () => {
+    // alert("coding");
+    // const filtered = getLocalSotrage.filter((item) => item.id === id);
+  });
+}
 function checkTask(id) {
+  console.log("caiu aqui", id);
   function udapte(array, index, newValue) {
     array[index] = newValue;
   }
 
   const filtered = getLocalSotrage.filter((item) => {
-    console.log("🚀 ~ file: script.js:3702 ~ filtered ~ item", item.checked);
-
-    function handleCheckedTask(checked) {
-      return (checked = !checked);
-    }
-    console.log("here", handleCheckedTask());
+    console.log("🚀 ~ file: script.js:502 ~ filtered ~ item", item);
     if (item.id === id) {
-      console.log("caiu aqui2");
       const checkedTask = {
         titulo: item.titulo,
         subtitulo: item.subtitulo,
@@ -420,48 +507,52 @@ function checkTask(id) {
         checked: !item.checked,
       };
       var testerarr = JSON.parse(localStorage.getItem("newtask"));
-
       udapte(testerarr, item.index, checkedTask);
+      console.log("🚀 ~ file: script.js:514 ~ filtered ~ testerarr", testerarr);
       localStorage.setItem("newtask", JSON.stringify(testerarr));
       window.location.reload();
     }
   });
-
-  console.log("🚀 ~ file: script.js:366 ~ checkTask ~ filtered", filtered);
 }
+// const MenuTextItem = document.querySelectorAll(".text-items-menu");
 
+// MenuTextItem.forEach((data) => {
+//   data.style.display = "none";
+// });
+const menuMenuItemMenu = document.getElementById("OpenMenu");
 const divMenu = document.getElementById("div-menu");
 let isOpenMenu = false;
-divMenu.addEventListener("click", () => {
-  console.log(
-    "🚀 ~ file: script.js:436 ~ divMenu.addEventListener ~ isOpenMenu",
-    isOpenMenu
-  );
+
+menuMenuItemMenu.addEventListener("click", () => {
   if (isOpenMenu == false) {
-    console.log("caiu no if");
+    MenuTextItem.forEach((data) => {
+      data.style.display = "flex";
+    });
+
     divMenu.style =
-      "width:300px;transition:width 2s;-moz-transition:width 2s;-webkit-transition:width 2s;-o-transition:width 2s;";
+      "width:150px;transition:width 2s;-moz-transition:width 2s;-webkit-transition:width 2s;-o-transition:width 2s; align-items: flex-start; padding-left:17px";
 
     isOpenMenu = !isOpenMenu;
-    console.log(
-      "🚀 ~ file: script.js:439 ~ divMenu.addEventListener ~ isOpenMenu",
-      isOpenMenu
-    );
   } else {
-    console.log("caiu no else");
+    MenuTextItem.forEach((data) => {
+      data.style.display = "none";
+    });
+
     isOpenMenu = !isOpenMenu;
     divMenu.style.width = "65px";
-    console.log(
-      "🚀 ~ file: script.js:443 ~ divMenu.addEventListener ~ isOpenMenu",
-      isOpenMenu
-    );
   }
-  // divMenu.style.width = isO
-  // if ((isOpenMenu = false)) {
-  //   console.log("entrou no if");
-  //   divMenu.style.width = "200px";
-  // } else if ((isOpenMenu = true)) {
-  //   console.log("entrou no else");
-  //   divMenu.style.width = "65px";
-  // }
 });
+function TwoWIndows(id) {
+  const showTask = document.getElementById("titulo-detail");
+  showTask.style.display = "none";
+  const testeDescrip = descricao.toString();
+  const filtered = getLocalSotrage.filter((item) => item.id === id);
+  document.querySelector(".hidden-div").style.display = "flex";
+  filtered.forEach((data) => {
+    document.getElementById("index2").value = data.index;
+    document.getElementById("start2").value = data.data;
+    document.getElementById("titulo2").value = data.titulo;
+    document.getElementById("sub2").value = data.subtitulo;
+    document.getElementById("descricao2").value = data.descricao;
+  });
+}
