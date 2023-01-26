@@ -388,12 +388,10 @@ header {
 }
 .todo-list-section .todo-container {
   width: 100%;
-  display: flex;
   border-top: 1px solid #333;
-  display: flex;
   flex-direction: column;
   max-height: 81vh;
-  overflow: auto;
+  overflow: scroll;
 }
 .todo-list-section .todo-container .NotaskParagafh {
   font-size: 18px;
@@ -406,6 +404,183 @@ header {
   font-weight: 500;
   color: rgb(123, 123, 123);
   margin-left: 3%;
+}
+.todo-list-section .todo-container .uncheck-todo {
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  height: 78px;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgb(197, 197, 197);
+  border-bottom: 1px solid rgb(197, 197, 197);
+  padding: 0px 30px 0px 0px;
+  overflow: hidden;
+}
+.todo-list-section .todo-container .uncheck-todo .h1SelectShow {
+  background-color: rgb(235, 235, 235);
+  text-align: center;
+  border-radius: 8px;
+  height: 69px;
+  width: 100px;
+  left: 56% !important;
+  position: absolute;
+}
+.todo-list-section .todo-container .uncheck-todo .h1SelectShow .deletar:hover {
+  background-color: rgb(213, 213, 213);
+}
+.todo-list-section .todo-container .uncheck-todo .h1SelectShow .editar:hover {
+  background-color: rgb(213, 213, 213);
+}
+.todo-list-section .todo-container .uncheck-todo .h1SelectShow option {
+  margin-top: 10px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #16325c;
+}
+.todo-list-section .todo-container .uncheck-todo #h1select:hover option {
+  background-color: transparent;
+}
+.todo-list-section .todo-container .uncheck-todo .h1SelectShow {
+  background-color: rgb(235, 235, 235);
+  text-align: center;
+  border-radius: 8px;
+  height: 69px;
+  width: 100px;
+  left: 720px;
+  left: 53%;
+  position: absolute;
+}
+.todo-list-section .todo-container .uncheck-todo .h1SelectShow option {
+  margin-top: 10px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #16325c;
+}
+.todo-list-section .todo-container .uncheck-todo .h1Select {
+  display: none;
+}
+.todo-list-section .todo-container .uncheck-todo .priority-uncheck {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-right: 10px;
+  max-width: 120px;
+  width: 120px;
+  font-weight: bold;
+}
+.todo-list-section .todo-container .uncheck-todo .priority-uncheck .done-uncheck {
+  width: 60%;
+}
+.todo-list-section .todo-container .uncheck-todo .priority-uncheck .done-uncheck .checked {
+  color: #5dd3bf;
+  font-weight: 500;
+}
+.todo-list-section .todo-container .uncheck-todo .priority-uncheck .done-uncheck .uncheck {
+  color: #f85757;
+  font-weight: 500;
+}
+.todo-list-section .todo-container .uncheck-todo #menu-bullet {
+  font-size: 18px;
+  background-color: transparent;
+  cursor: pointer;
+  color: #16325c;
+}
+.todo-list-section .todo-container .uncheck-todo .button-bullet {
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  background-color: #5dd3bf;
+}
+.todo-list-section .todo-container .uncheck-todo .button-bullet:hover {
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  background-color: #5dd3bf;
+}
+.todo-list-section .todo-container .uncheck-todo .titles-wrapper-uncheck {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding-left: 20px;
+}
+.todo-list-section .todo-container .uncheck-todo .titles-wrapper-uncheck #check {
+  accent-color: #5dd3bf;
+  font-size: 22px;
+  cursor: pointer;
+  width: 25px;
+  height: 20px;
+}
+.todo-list-section .todo-container .uncheck-todo .container-titles-uncheck {
+  height: 100%;
+}
+.todo-list-section .todo-container .uncheck-todo .container-titles-uncheck .titles {
+  gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  height: 0px;
+}
+.todo-list-section .todo-container .uncheck-todo .container-titles-uncheck h4 {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.todo-list-section .todo-container .uncheck-todo .container-titles-uncheck h4 p {
+  font-size: 18px;
+  color: #9c9c9c;
+  font-weight: 400;
+}
+.todo-list-section .todo-container .uncheck-todo .container-titles-uncheck p {
+  font-size: 18px;
+  color: #9c9c9c;
+}
+.todo-list-section .todo-container .uncheck-todo .container-titles-uncheck .subtitlep {
+  font-size: 18px;
+  color: #9c9c9c;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 10px;
+}
+.todo-list-section .todo-container .uncheck-todo .container-titles-uncheck :hover {
+  background-color: #fdf3f3;
+}
+.todo-list-section .todo-container #priority {
+  font-weight: 500;
+}
+.todo-list-section .todo-container .done-uncheck:hover {
+  background-color: #fdf3f3;
+}
+.todo-list-section .todo-container .done-uncheck:hover p:hover {
+  background-color: #fdf3f3;
+}
+.todo-list-section .todo-container .uncheck-todo:hover {
+  background-color: #fdf3f3;
+}
+.todo-list-section .todo-container .priority-uncheck:hover {
+  background-color: #fdf3f3;
+}
+.todo-list-section .todo-container .titles-wrapper-uncheck:hover {
+  background-color: #fdf3f3;
+}
+.todo-list-section .todo-container .container-titles-uncheck:hover {
+  background-color: #fdf3f3;
+}
+.todo-list-section .todo-container .container-titles-uncheck:hover .titles:hover {
+  background-color: #fdf3f3;
+}
+.todo-list-section .todo-container .container-titles-uncheck:hover .titles:hover p,
+.todo-list-section .todo-container .container-titles-uncheck:hover .titles:hover h4,
+.todo-list-section .todo-container .container-titles-uncheck:hover .titles:hover :hover {
+  background-color: #fdf3f3;
 }
 .todo-list-section .todo-container .todo {
   width: 100%;

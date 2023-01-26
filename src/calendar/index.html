@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Calendar</title>
+  </head>
+  <body>
+    <div class="menu-header-wapper">
+      <section class="menu-section">
+        <div class="menu" id="div-menu">
+          <div class="menu-itens-menu" id="OpenMenu">
+          <i class="fa-solid fa-bars" id="menu-icon"></i><a class="text-items-menu">Menu</a>
+          </div>
+            <div class="menu-itens-menu" >
+          <i class="fa-sharp fa-solid fa-house" id="menu-icon"></i><a href="../home/index.html" class="text-items-menu">Home</a>
+          </div>
+        
+                   <div class="menu-itens-menu" >
+        <i class="fa-solid fa-calendar" id="menu-icon"></i><a class="text-items-menu">Calendar</a>
+          </div>
+         
+        </div>
+      </section>
+      <div class="header-body-wapper">
+        <section class="header-section">
+          <header>
+             <div class="icon-text-container">
+              <h1>Calendar<span>MVP</span></h1>
+              <i class="fa-solid fa-code"></i>
+            </div>
+
+            <div class="header-container">
+
+              <div class="upload-container">
+                <input
+                  class="imgInput"
+                  type="file"
+                  id="file"
+                  accept="image/jpeg, image/png, image/jpg"
+                />
+                <img class="image" id="image" />
+              </div>
+              <div class="upload-container-hidden">
+                <input
+                  class="imgInput-hidden"
+                  type="file"
+                  id="file-hidden"
+                  accept="image/jpeg, image/png, image/jpg"
+                />
+                <i
+                  class="fa-regular fa-pen-to-square"
+                  id="pen"
+                  class="hidden"
+                ></i>
+                <img class="image-hidden" id="image-hidden" />
+              </div>
+            </div>
+          </header>
+        </section>
+
+ <div class="container">
+      <div class="left">
+        <div class="calendar">
+          <div class="month">
+            <i class="fas fa-angle-left prev"></i>
+            <div class="date">december 2015</div>
+            <i class="fas fa-angle-right next"></i>
+          </div>
+          <div class="weekdays">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+          </div>
+          <div class="days"></div>
+          <div class="goto-today">
+            <div class="goto">
+              <input type="text" placeholder="mm/yyyy" class="date-input" />
+              <button class="goto-btn">Go</button>
+            </div>
+            <button class="today-btn">Today</button>
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="today-date">
+          <div class="event-day">wed</div>
+          <div class="event-date">12th december 2022</div>
+        </div>
+        <div class="events"></div>
+        
+      </div>
+    
+    </div>
+          </div>
+        </section> 
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

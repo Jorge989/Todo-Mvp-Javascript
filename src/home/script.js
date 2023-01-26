@@ -5,7 +5,7 @@ const MenuTextItem = document.querySelectorAll(".text-items-menu");
 MenuTextItem.forEach((data) => {
   data.style.display = "none";
 });
-localStorage.setItem("filteredTasksDone", JSON.stringify(""));
+// localStorage.setItem("filteredTasksDone", JSON.stringify(""));
 document.querySelector(".image").classList.remove("teste");
 document.querySelector(".hidden-div").style.display = "none";
 document.querySelector(".image").src = "./avatar.png";
@@ -14,7 +14,10 @@ document.querySelector(".image-hidden").src = "./avatar.png";
 document.querySelector(".upload-container-hidden").style.display = "none";
 let isProfilePhotoUpload = false;
 const file = document.querySelector("#file");
-
+var LocalImageStore = localStorage.getItem("file");
+if (LocalImageStore) {
+  document.querySelector("#image").src = LocalImageStore;
+}
 file.addEventListener("change", function () {
   const reader = new FileReader();
   reader.addEventListener("load", () => {
@@ -25,6 +28,7 @@ file.addEventListener("change", function () {
       document.querySelector(".upload-container-hidden").style.display = "flex";
 
       isProfilePhotoUpload = true;
+      localStorage.setItem("file", reader.result);
     } else {
       document.querySelector("#image").src = "./avatar.png";
     }
@@ -107,18 +111,17 @@ document.addEventListener("keydown", function (e) {
 
 let index = -1;
 function handleForm(e) {
+  e.preventDefault();
   var testerarr = JSON.parse(localStorage.getItem("newtask"));
   var counter = parseInt(
     localStorage.getItem("index") ? parseInt(localStorage.getItem("index")) : -1
   );
   localStorage.setItem("index", ++counter);
-  console.log("caounter", counter);
+
   if (FormIsEdited) {
-    console.log("oiiiii entro no if");
     var counter = parseInt(localStorage.getItem("index"));
     localStorage.setItem("index", --counter);
-    console.log("COUNTER", counter);
-    console.log("handleindex", handleIndex);
+
     newTask = [
       {
         titulo: document.getElementById("titulo").value,
@@ -281,15 +284,21 @@ inputFilter.addEventListener("keydown", function (e) {
   if (testa.length > 0) {
     let showIntHtml = testa
       .map((data, index) => {
-        return `<div class="todo" onclick="TwoWIndows(${data.id})
+        return `<div class="${
+          data.checked ? "todo" : "uncheck-todo"
+        }" onclick="TwoWIndows(${data.id})
     "> 
-            <div class="titles-wrapper"> 
+              <div class="${
+                data.checked ? "titles-wrapper" : "titles-wrapper-uncheck"
+              }""> 
              <input  ${
                data.checked ? "checked" : ""
              }  type="checkbox" id="check" class="check" name="check" onclick="checkTask(${
           data.id
         })"/> 
-             <div class="container-titles"> 
+ <div  class="${
+   data.checked ? "container-titles" : "container-titles-uncheck"
+ }"> 
              <div class="titles">
              <p class="subtitlep">ID: ${data.index}</p>
              <h4 class="titleh4">${data.titulo}</h4> 
@@ -298,7 +307,9 @@ inputFilter.addEventListener("keydown", function (e) {
             <p class="subtitlep">${data.subtitulo}</p>
             </div> 
              </div> 
-<div class="priority"><div class="done"><p id="priority">Today</p><p class="${
+<div class="${data.checked ? "priority" : "priority-uncheck"}"><div class="${
+          data.checked ? "done" : "done-uncheck"
+        }"><p id="priority">Today</p><p class="${
           data.checked ? "checked" : "uncheck"
         }">${data.checked ? "Done" : "pendding"}</p></div>
 <button class="button-bullet" onclick="showSelect(${data.id})">
@@ -318,16 +329,22 @@ inputFilter.addEventListener("keydown", function (e) {
   } else {
     const showIntHtml = getLocalSotrage
       .map((data, index) => {
-        return `<div class="todo" onclick="TwoWIndows(${data.id})
+        return `<div class="${
+          data.checked ? "todo" : "uncheck-todo"
+        }" onclick="TwoWIndows(${data.id})
     "> 
-            <div class="titles-wrapper"> 
+    <div class="${
+      data.checked ? "titles-wrapper" : "titles-wrapper-uncheck"
+    }""> 
 
              <input  ${
                data.checked ? "checked" : ""
              }  type="checkbox" id="check" class="check" name="check" onclick="checkTask(${
           data.id
         })"/> 
-             <div class="container-titles"> 
+     <div  class="${
+       data.checked ? "container-titles" : "container-titles-uncheck"
+     }"> 
              <div class="titles">
              <p class="subtitlep-id">ID: ${data.index}</p>
              <h4 class="titleh4"><p>Título:</p>${data.titulo}</h4> 
@@ -335,7 +352,9 @@ inputFilter.addEventListener("keydown", function (e) {
             <h4 class="subtitlep"><p>Subtítulo:</p>${data.subtitulo}</h4>
             </div> 
              </div> 
-<div class="priority"><div class="done"><p id="priority">Today</p><p class="${
+<div class="${data.checked ? "priority" : "priority-uncheck"}"><div class="${
+          data.checked ? "done" : "done-uncheck"
+        }"><p id="priority">Today</p><p class="${
           data.checked ? "checked" : "uncheck"
         }">${data.checked ? "Done" : "pendding"}</p></div>
 <button class="button-bullet" onclick="showSelect(${data.id})">
@@ -354,23 +373,35 @@ inputFilter.addEventListener("keydown", function (e) {
 
     myContent.innerHTML = showIntHtml;
   }
+  if (getLocalSotrage.length == 0 || !getLocalSotrage) {
+    const noTaskIntHtml = `<p class="NotaskParagafh">Você não possui tasks</p>`;
+    myContent.innerHTML = noTaskIntHtml;
+  }
 });
 
 var filterPendding = JSON.parse(localStorage.getItem("filteredTasksPendding"));
+var filterDone = JSON.parse(localStorage.getItem("filteredTasksDone"));
 
-if (filteredDone.length > 0) {
-  const showIntHtml = filteredTasksDone
-    .map((data, index) => {
-      return `<div class="todo" onclick="TwoWIndows(${data.id})
+checkTaskInput.addEventListener("change", () => {
+  if (switchDonePendding == true) {
+    const showIntHtml = filterPendding
+      .map((data, index) => {
+        return `<div class="${
+          data.checked ? "todo" : "uncheck-todo"
+        }" onclick="TwoWIndows(${data.id})
     "> 
-            <div class="titles-wrapper"> 
+              <div class="${
+                data.checked ? "titles-wrapper" : "titles-wrapper-uncheck"
+              }""> 
 
              <input  ${
                data.checked ? "checked" : ""
              }  type="checkbox" id="check" class="check" name="check" onclick="checkTask(${
-        data.id
-      })"/> 
-             <div class="container-titles"> 
+          data.id
+        })"/> 
+<div  class="${
+          data.checked ? "container-titles" : "container-titles-uncheck"
+        }"> 
              <div class="titles">
              <p class="subtitlep-id">ID: ${data.index}</p>
              <h4 class="titleh4"><p>Título:</p>${data.titulo}</h4> 
@@ -378,9 +409,11 @@ if (filteredDone.length > 0) {
             <h4 class="subtitlep"><p>Subtítulo:</p>${data.subtitulo}</h4>
             </div> 
              </div> 
-<div class="priority"><div class="done"><p id="priority">Today</p><p class="${
-        data.checked ? "checked" : "uncheck"
-      }">${data.checked ? "Done" : "pendding"}</p></div>
+<div class="${data.checked ? "priority" : "priority-uncheck"}"><div class="${
+          data.checked ? "done" : "done-uncheck"
+        }"><p id="priority">Today</p><p class="${
+          data.checked ? "checked" : "uncheck"
+        }">${data.checked ? "Done" : "pendding"}</p></div>
 <button class="button-bullet" onclick="showSelect(${data.id})">
 <i class="fa-solid fa-ellipsis-vertical" id=menu-bullet>
 </i></button><div name="select"class="h1Select" id="${data.id}">
@@ -392,24 +425,29 @@ if (filteredDone.length > 0) {
   })">Editar</option>
 </div></div>
 </div>`;
-    })
-    .join("");
+      })
+      .join("");
 
-  myContent.innerHTML = showIntHtml;
-}
-if (getLocalSotrage) {
-  const showIntHtml = getLocalSotrage
-    .map((data, index) => {
-      return `<div class="todo" onclick="TwoWIndows(${data.id})
+    myContent.innerHTML = showIntHtml;
+  } else {
+    const showIntHtml = filterDone
+      .map((data, index) => {
+        return `<div class="${
+          data.checked ? "todo" : "uncheck-todo"
+        }" onclick="TwoWIndows(${data.id})
     "> 
-            <div class="titles-wrapper"> 
+              <div class="${
+                data.checked ? "titles-wrapper" : "titles-wrapper-uncheck"
+              }""> 
 
              <input  ${
                data.checked ? "checked" : ""
              }  type="checkbox" id="check" class="check" name="check" onclick="checkTask(${
-        data.id
-      })"/> 
-             <div class="container-titles"> 
+          data.id
+        })"/> 
+             <div  class="${
+               data.checked ? "container-titles" : "container-titles-uncheck"
+             }"> 
              <div class="titles">
              <p class="subtitlep-id">ID: ${data.index}</p>
              <h4 class="titleh4"><p>Título:</p>${data.titulo}</h4> 
@@ -417,7 +455,62 @@ if (getLocalSotrage) {
             <h4 class="subtitlep"><p>Subtítulo:</p>${data.subtitulo}</h4>
             </div> 
              </div> 
-<div class="priority"><div class="done"><p id="priority">Today</p><p class="${
+<div class="${data.checked ? "priority" : "priority-uncheck"}"><div class="${
+          data.checked ? "done" : "done-uncheck"
+        }"><p id="priority">Today</p><p class="${
+          data.checked ? "checked" : "uncheck"
+        }">${data.checked ? "Done" : "pendding"}</p></div>
+<button class="button-bullet" onclick="showSelect(${data.id})">
+<i class="fa-solid fa-ellipsis-vertical" id=menu-bullet>
+</i></button><div name="select"class="h1Select" id="${data.id}">
+  <option value="valor1" class="deletar" onclick="deleteTask(${
+    data.id
+  })">Deletar</option>
+  <option value="valor2" class="editar"onclick="editTask(${
+    data.id
+  })">Editar</option>
+</div></div>
+</div>`;
+      })
+      .join("");
+
+    myContent.innerHTML = showIntHtml;
+  }
+  if (getLocalSotrage.length == 0) {
+    const noTaskIntHtml = `<p class="NotaskParagafh">Você não possui tasks</p>`;
+    myContent.innerHTML = noTaskIntHtml;
+  }
+});
+
+if (getLocalSotrage) {
+  const showIntHtml = getLocalSotrage
+    .map((data, index) => {
+      return `<div class="${
+        data.checked ? "todo" : "uncheck-todo"
+      }" onclick="TwoWIndows(${data.id})
+    "> 
+            <div class="${
+              data.checked ? "titles-wrapper" : "titles-wrapper-uncheck"
+            }""> 
+
+             <input  ${
+               data.checked ? "checked" : ""
+             }  type="checkbox" id="check" class="check" name="check" onclick="checkTask(${
+        data.id
+      })"/> 
+             <div  class="${
+               data.checked ? "container-titles" : "container-titles-uncheck"
+             }"> 
+             <div class="titles">
+             <p class="subtitlep-id">ID: ${data.index}</p>
+             <h4 class="titleh4"><p>Título:</p>${data.titulo}</h4> 
+               </div>
+            <h4 class="subtitlep"><p>Subtítulo:</p>${data.subtitulo}</h4>
+            </div> 
+             </div> 
+<div class="${data.checked ? "priority" : "priority-uncheck"}"><div class="${
+        data.checked ? "done" : "done-uncheck"
+      }"><p id="priority">Today</p><p class="${
         data.checked ? "checked" : "uncheck"
       }">${data.checked ? "Done" : "pendding"}</p></div>
 <button class="button-bullet" onclick="showSelect(${data.id})">
@@ -436,6 +529,8 @@ if (getLocalSotrage) {
 
   myContent.innerHTML = showIntHtml;
 } else {
+}
+if (!getLocalSotrage || getLocalSotrage.length == 0) {
   const noTaskIntHtml = `<p class="NotaskParagafh">Você não possui tasks</p>`;
   myContent.innerHTML = noTaskIntHtml;
 }
@@ -489,13 +584,11 @@ if (checkBtn) {
   });
 }
 function checkTask(id) {
-  console.log("caiu aqui", id);
   function udapte(array, index, newValue) {
     array[index] = newValue;
   }
 
   const filtered = getLocalSotrage.filter((item) => {
-    console.log("🚀 ~ file: script.js:502 ~ filtered ~ item", item);
     if (item.id === id) {
       const checkedTask = {
         titulo: item.titulo,
@@ -508,7 +601,7 @@ function checkTask(id) {
       };
       var testerarr = JSON.parse(localStorage.getItem("newtask"));
       udapte(testerarr, item.index, checkedTask);
-      console.log("🚀 ~ file: script.js:514 ~ filtered ~ testerarr", testerarr);
+
       localStorage.setItem("newtask", JSON.stringify(testerarr));
       window.location.reload();
     }

@@ -322,6 +322,8 @@ header {
         .descricao {
           margin-top: 15px;
         }
+        #descricao {
+        }
         #subtitulo {
           margin-top: 25px;
         }
@@ -415,12 +417,12 @@ header {
 
   .todo-container {
     width: 100%;
-    display: flex;
+    // display: flex;
     border-top: 1px solid #333;
-    display: flex;
     flex-direction: column;
     max-height: 81vh;
-    overflow: auto;
+    overflow: scroll;
+
     .NotaskParagafh {
       font-size: 18px;
       font-weight: 500;
@@ -432,6 +434,190 @@ header {
       font-weight: 500;
       color: rgb(123, 123, 123);
       margin-left: 3%;
+    }
+    .uncheck-todo {
+      width: 100%;
+      cursor: pointer;
+      display: flex;
+      height: 78px;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgb(197, 197, 197);
+      border-bottom: 1px solid rgb(197, 197, 197);
+      padding: 0px 30px 0px 0px;
+      overflow: hidden;
+
+      .h1SelectShow {
+        .deletar:hover {
+          background-color: rgb(213, 213, 213);
+        }
+        .editar:hover {
+          background-color: rgb(213, 213, 213);
+        }
+        background-color: rgb(235, 235, 235);
+        text-align: center;
+        border-radius: 8px;
+        height: 69px;
+        width: 100px;
+        left: 56% !important;
+        position: absolute;
+
+        option {
+          margin-top: 10px;
+          font-size: 17px;
+          font-weight: 500;
+          color: #16325c;
+        }
+      }
+      #h1select:hover option {
+        background-color: transparent;
+      }
+      .h1SelectShow {
+        background-color: rgb(235, 235, 235);
+        text-align: center;
+        border-radius: 8px;
+        height: 69px;
+        width: 100px;
+        left: 720px;
+        left: 53%;
+        position: absolute;
+        option {
+          margin-top: 10px;
+          font-size: 17px;
+          font-weight: 500;
+          color: #16325c;
+        }
+      }
+      .h1Select {
+        display: none;
+      }
+      .priority-uncheck {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding-right: 10px;
+        max-width: 120px;
+        width: 120px;
+        font-weight: bold;
+
+        .done-uncheck {
+          width: 60%;
+          .checked {
+            color: #5dd3bf;
+            font-weight: 500;
+          }
+          .uncheck {
+            color: #f85757;
+            font-weight: 500;
+          }
+        }
+      }
+      #menu-bullet {
+        font-size: 18px;
+        background-color: transparent;
+        cursor: pointer;
+        color: #16325c;
+      }
+
+      .button-bullet {
+        border: none;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+        background-color: #5dd3bf;
+      }
+      .button-bullet:hover {
+        border: none;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        cursor: pointer;
+        background-color: #5dd3bf;
+      }
+      .titles-wrapper-uncheck {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding-left: 20px;
+
+        #check {
+          accent-color: #5dd3bf;
+          font-size: 22px;
+          cursor: pointer;
+          width: 25px;
+          height: 20px;
+        }
+      }
+
+      .container-titles-uncheck {
+        height: 100%;
+        .titles {
+          gap: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: 30px;
+          height: 0px;
+        }
+        h4 {
+          font-size: 20px;
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          p {
+            font-size: 18px;
+            color: #9c9c9c;
+            font-weight: 400;
+          }
+        }
+        p {
+          font-size: 18px;
+          color: #9c9c9c;
+        }
+        .subtitlep {
+          font-size: 18px;
+          color: #9c9c9c;
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          height: 10px;
+        }
+        :hover {
+          background-color: #fdf3f3;
+        }
+      }
+    }
+    #priority {
+      font-weight: 500;
+    }
+    .done-uncheck:hover {
+      background-color: #fdf3f3;
+      p:hover {
+        background-color: #fdf3f3;
+      }
+    }
+    .uncheck-todo:hover {
+      background-color: #fdf3f3;
+    }
+    .priority-uncheck:hover {
+      background-color: #fdf3f3;
+    }
+    .titles-wrapper-uncheck:hover {
+      background-color: #fdf3f3;
+    }
+    .container-titles-uncheck:hover {
+      background-color: #fdf3f3;
+
+      .titles:hover {
+        p,
+        h4,
+        :hover {
+          background-color: #fdf3f3;
+        }
+        background-color: #fdf3f3;
+      }
     }
     .todo {
       width: 100%;
@@ -548,6 +734,7 @@ header {
           height: 20px;
         }
       }
+
       .container-titles {
         // display: flex;
         // align-items: flex-start;

@@ -16,32 +16,40 @@
       <section class="menu-section">
         <div class="menu" id="div-menu">
           <div class="menu-itens-menu" id="OpenMenu">
-          <i class="fa-solid fa-bars" id="menu-icon"></i><a class="text-items-menu">Menu</a>
+            <i class="fa-solid fa-bars" id="menu-icon"></i
+            ><a class="text-items-menu">Menu</a>
           </div>
-            <div class="menu-itens-menu" >
-          <i class="fa-sharp fa-solid fa-house" id="menu-icon"></i><a class="text-items-menu">Home</a>
+          <div class="menu-itens-menu">
+            <i class="fa-sharp fa-solid fa-house" id="menu-icon"></i
+            ><a class="text-items-menu">Home</a>
           </div>
-              <!-- <div class="menu-itens-menu" >
+          <!-- <div class="menu-itens-menu" >
          <i class="fa-solid fa-check" id="menu-icon"></i><a href="../tasks/index.html" class="text-items-menu">Tasks</a>
           </div> -->
-                   <div class="menu-itens-menu" >
-        <i class="fa-solid fa-calendar" id="menu-icon"></i><a class="text-items-menu">Calendar</a>
+          <div class="menu-itens-menu">
+            <i class="fa-solid fa-calendar" id="menu-icon"></i
+            ><a href="../calendar/index.html" class="text-items-menu"
+              >Calendar</a
+            >
           </div>
-         
         </div>
       </section>
       <div class="header-body-wapper">
         <section class="header-section">
           <header>
-  <div class="check-container">
-
-<label class="switch">
-  <input type="checkbox" id="checkTask">
-  <span class="slider round"></span>
-</label><p class="checkbox-p">Mude para ver tarefas pendentes</p></div>
+            <div class="check-container">
+              <label class="switch">
+                <input type="checkbox" id="checkTask" />
+                <span class="slider round"></span>
+              </label>
+              <p class="checkbox-p">Mude para ver tarefas pendentes</p>
+            </div>
             <div class="header-container">
               <div class="input-glass-container">
-                <input placeholder="Procure pelo número da task"  id="inputFilter"/>
+                <input
+                  placeholder="Procure pelo número da task"
+                  id="inputFilter"
+                />
                 <i class="fa-solid fa-magnifying-glass"></i>
               </div>
               <div class="upload-container">
@@ -110,20 +118,16 @@
                   placeholder="Descreva o subtítulo"
                 />
                 <label class="descricao" for="descricao">Descrição:</label>
-                <input
+                <textarea
                   type="text"
                   name="descricao"
                   id="descricao"
-                  placeholder="Descreva o subtítulo"
-                ></input>
+                  placeholder="Descrição"
+                ></textarea>
                 <div class="btn-erro-container">
-                  <button
-                    class="btn-confirmar"
-                    type="submit"
-                    id="sendForm"
-             
-                    >Confirmar</button
-                  >
+                  <button class="btn-confirmar" type="submit" id="sendForm">
+                    Confirmar
+                  </button>
                   <div id="errorContainer"></div>
                 </div>
               </form>
@@ -134,47 +138,27 @@
         <section class="todo-list-section">
           <div class="todo-container" id="main"></div>
           <div class="task-details-container">
-       
-              <form method="post" class="form-details">
-                <p id="titulo-detail">Clique na lista para visualizar a task!!</p>
-                <div class="hidden-div">
+            <form method="post" class="form-details">
+              <p id="titulo-detail">Clique na lista para visualizar a task!!</p>
+              <div class="hidden-div">
                 <input id="index2" />
-              
 
                 <label for="titulo">Título</label>
-                <input
-                  disabled
-                  type="text"
-                  name="titulo"
-                  id="titulo2"
-              
-                />
+                <input disabled type="text" name="titulo" id="titulo2" />
                 <label for="sub" class="sub-label">Subtítulo</label>
-                <input 
-                  disabled
-                  type="text"
-                  name="sub"
-                  id="sub2"
-            
-                />  <label for="start" class="data-label">Data</label>
-                <input
-                  disabled
-                  type="date"
-                  id="start2"
-                  name="trip-start"
-            
-                />
+                <input disabled type="text" name="sub" id="sub2" />
+                <label for="start" class="data-label">Data</label>
+                <input disabled type="date" id="start2" name="trip-start" />
                 <label class="descricao" for="descricao2">Descrição</label>
                 <textarea
                   disabled
                   type="text"
                   name="descricao2"
                   id="descricao2"
-            
+                  style="width: 300px"
                 ></textarea>
-         
-                </div>
-              </form>
+              </div>
+            </form>
           </div>
         </section>
       </div>
